@@ -36,6 +36,18 @@ function clearBtn(){
     operator = undefined;
 
 }
+function calculateResult(){
+    if (firstNum != undefined && secNum !==undefined && operator !== undefined){
+        console.log(Number(firstNum));
+        console.log(Number(secNum))
+        console.log(operator)
+        let calculatedVal = operate(Number(firstNum), operator, Number(secNum));
+        firstNum = calculatedVal;
+        operator = undefined;
+        secNum = undefined;
+        populateDisplay(calculatedVal);
+    }
+}
 function btnClick(e){
     num = e.target.textContent;
     if (num === "Ac"){
@@ -65,20 +77,16 @@ function btnClick(e){
         // populateDisplay(num);
     }
     if("+-*/".includes(num)){
-        operator = num;
+        if(operator === "undefined"){
+            operator = num;
+        }else{
+            calculateResult();
+            operator = num;
+        }
     }
 
     if (num == "="){
-        if (firstNum != undefined && secNum !==undefined && operator !== undefined){
-            console.log(Number(firstNum));
-            console.log(Number(secNum))
-            console.log(operator)
-            let calculatedVal = operate(Number(firstNum), operator, Number(secNum));
-            firstNum = calculatedVal;
-            operator = undefined;
-            secNum = undefined;
-            populateDisplay(calculatedVal);
-        }
+       calculateResult();
     }
 }
 let firstNum, secNum, operator, display;
