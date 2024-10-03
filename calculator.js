@@ -8,6 +8,9 @@ function multiply(a,b){
     return a * b;
 }
 function divide(a,b){
+    if(b == 0){
+        return "Really?"
+    }
     return a/b;
 }
 function isNumber(number){
@@ -17,6 +20,29 @@ function isNumber(number){
 function populateDisplay(num){
     display = document.querySelector(".display");
     display.textContent = num;
+}
+function Del(){
+    if(display.textContent != "0"){
+        let num = display.textContent;
+        console.log(num);
+        console.log(typeof num)
+        console.log(num.length)
+        let end = num.length - 1;
+        console.log(end);
+        let slicedNum;
+        if (num.length == 1){
+            slicedNum = 0;
+        } else{
+            slicedNum =  num.slice(0, end);
+        }
+        if(num === firstNum){
+            firstNum =  slicedNum
+        } else if (num === secNum){
+            secNum =  num.slice(0, end);
+        }
+        display.textContent = slicedNum;
+
+    }
 }
 function operate(num_1, operator, num_2){
     if (operator === "+"){
@@ -60,7 +86,7 @@ function btnClick(e){
             
         }else if (secNum === undefined && operator === undefined){
             if (typeof firstNum === "number"){
-                firstNum = num;
+                firstNum = String(num);
             } else{
                 firstNum = firstNum.concat(num);
             }
@@ -83,6 +109,9 @@ function btnClick(e){
             calculateResult();
             operator = num;
         }
+    }
+    if (num === "del"){
+        Del();
     }
 
     if (num == "="){
