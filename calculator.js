@@ -30,10 +30,10 @@ function Del(){
         } else{
             slicedNum =  num.slice(0, end);
         }
-        if(num === firstNum){
-            firstNum =  slicedNum
-        } else if (num === secNum){
-            secNum =  num.slice(0, end);
+        if(num == firstNum){
+            firstNum =  Number(slicedNum);
+        } else if (num == secNum){
+            secNum =  Number(num.slice(0, end));
         }
         populateDisplay(Number(slicedNum))
 
