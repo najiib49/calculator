@@ -18,12 +18,11 @@ function isNumber(number){
     return numbers.includes(number);
 }
 function populateDisplay(num){
-    display = document.querySelector(".display");
     display.textContent = num;
 }
 function Del(){
     if(display.textContent != "0"){
-        let num = display.textContent;
+        let num = display.textContent; // always returns a string
         let end = num.length - 1;
         let slicedNum;
         if (num.length == 1){
@@ -36,7 +35,7 @@ function Del(){
         } else if (num === secNum){
             secNum =  num.slice(0, end);
         }
-        display.textContent = slicedNum;
+        populateDisplay(Number(slicedNum))
 
     }
 }
@@ -52,7 +51,7 @@ function operate(num_1, operator, num_2){
     }
 }
 function clearBtn(){
-    display.textContent = 0;
+    populateDisplay(0);
     firstNum = undefined;
     secNum = undefined;
     operator = undefined;
@@ -60,10 +59,10 @@ function clearBtn(){
 }
 function calculateResult(){
     if (firstNum != undefined && secNum !==undefined && operator !== undefined){
-        console.log(Number(firstNum));
-        console.log(Number(secNum))
-        console.log(operator)
-        let calculatedVal = operate(Number(firstNum), operator, Number(secNum));
+        console.log(firstNum);
+        console.log(secNum);
+        console.log(operator);
+        let calculatedVal = operate(firstNum, operator, secNum);
         firstNum = calculatedVal;
         operator = undefined;
         secNum = undefined;
@@ -77,26 +76,21 @@ function btnClick(e){
     }
     if (isNumber(num)){
         if(firstNum === undefined){
-            firstNum = num;
+            firstNum = Number(num);
             populateDisplay(firstNum);
             
         }else if (secNum === undefined && operator === undefined){
-            if (typeof firstNum === "number"){
-                firstNum = String(num);
-            } else{
-                firstNum = firstNum.concat(num);
-            }
+            firstNum = Number(firstNum.toString().concat(num));
             populateDisplay(firstNum);
 
         }else if(secNum ===undefined){
-            secNum = num;
+            secNum = Number(num);
             populateDisplay(secNum);
 
         }else if(operator != undefined){
-            secNum = secNum.concat(num);
+            secNum = Number(secNum.toString().concat(num));
             populateDisplay(secNum);
         }
-        // populateDisplay(num);
     }
     if("+-*/".includes(num)){
         if(operator === "undefined"){
@@ -114,7 +108,8 @@ function btnClick(e){
        calculateResult();
     }
 }
-let firstNum, secNum, operator, display;
+let firstNum, secNum, operator;
+let display = document.querySelector(".display");
 const btns = document.querySelectorAll("button");
 for(let i=0; i < btns.length; i++){
     btns[i].addEventListener("click", btnClick)
