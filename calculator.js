@@ -18,7 +18,7 @@ function isNumber(number){
     return numbers.includes(number);
 }
 function populateDisplay(num){
-    display.textContent = num;
+    display.textContent = limitOverflow(num);
 }
 function Del(){
     if(display.textContent != "0"){
@@ -56,6 +56,16 @@ function clearBtn(){
     secNum = undefined;
     operator = undefined;
 
+}
+function limitOverflow(num){
+    if(num.toString().includes(".")){
+        indexOfDecimal = num.toString().indexOf(".");
+        lengthAfterDecimal = num.toString().slice(indexOfDecimal+1).length;
+        if (lengthAfterDecimal > 8){
+            num = num.toFixed(8);
+        }
+    }
+    return num;
 }
 function calculateResult(){
     if (firstNum != undefined && secNum !==undefined && operator !== undefined){
