@@ -24,11 +24,7 @@ function populateDisplay(num){
 function Del(){
     if(display.textContent != "0"){
         let num = display.textContent;
-        console.log(num);
-        console.log(typeof num)
-        console.log(num.length)
         let end = num.length - 1;
-        console.log(end);
         let slicedNum;
         if (num.length == 1){
             slicedNum = 0;
