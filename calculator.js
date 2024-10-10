@@ -95,6 +95,7 @@ function btnClick(e){
             // resets first number from previous calclation when a new number is entered. 
             if(previousCalculation){
                 firstNum = num;
+                previousCalculation = false;
             } else{    
                 if(firstNum == "0"){
                     firstNum = num;
@@ -115,6 +116,30 @@ function btnClick(e){
                 secNum = secNum.concat(num);
             }
             populateDisplay(secNum);
+        }
+    }
+    if(num === "."){
+        if(firstNum === undefined){
+            firstNum = "0.";
+            populateDisplay(firstNum);
+        }else if(previousCalculation && secNum === undefined && operator === undefined){
+            previousCalculation = false;
+            firstNum = "0.";
+            populateDisplay(firstNum);
+
+        }else if(secNum === undefined && operator !== undefined){
+            secNum = "0.";
+            populateDisplay(secNum);
+        }else{
+            if(!display.textContent.includes(".")){
+                if(display.textContent == firstNum){
+                    firstNum = firstNum.concat(num);
+                    populateDisplay(firstNum)
+                }else if (display.textContent == secNum){
+                    secNum = secNum.concat(num)
+                    populateDisplay(secNum);
+                }
+            }
         }
     }
     if("+-*/".includes(num)){
