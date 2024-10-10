@@ -85,6 +85,11 @@ function btnClick(e){
         return clearBtn();
     }
     if (isNumber(num)){
+        //start a clean sheet when a new number is entered after a calculation
+        if(firstNum !== undefined && secNum === undefined && operator === undefined){
+            firstNum = undefined;
+        }
+
         if(firstNum === undefined){
             firstNum = Number(num);
             populateDisplay(firstNum);
