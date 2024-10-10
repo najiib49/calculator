@@ -31,11 +31,11 @@ function Del(){
             slicedNum =  num.slice(0, end);
         }
         if(num == firstNum){
-            firstNum =  Number(slicedNum);
+            firstNum =  slicedNum;
         } else if (num == secNum){
-            secNum =  Number(num.slice(0, end));
+            secNum =  num.slice(0, end);
         }
-        populateDisplay(Number(slicedNum))
+        populateDisplay(slicedNum)
 
     }
 }
@@ -51,7 +51,7 @@ function operate(num_1, operator, num_2){
     }
 }
 function clearBtn(){
-    populateDisplay(0);
+    populateDisplay("0");
     firstNum = undefined;
     secNum = undefined;
     operator = undefined;
@@ -59,11 +59,11 @@ function clearBtn(){
 
 }
 function limitOverflow(num){
-    if(num.toString().includes(".")){
-        indexOfDecimal = num.toString().indexOf(".");
-        lengthAfterDecimal = num.toString().slice(indexOfDecimal+1).length;
+    if(num.includes(".")){
+        indexOfDecimal = num.indexOf(".");
+        lengthAfterDecimal = num.slice(indexOfDecimal+1).length;
         if (lengthAfterDecimal > 8){
-            num = num.toFixed(8);
+            num = Number(num).toFixed(8);
         }
     }
     return num;
@@ -73,12 +73,12 @@ function calculateResult(){
         console.log(firstNum);
         console.log(secNum);
         console.log(operator);
-        let calculatedVal = operate(firstNum, operator, secNum);
-        firstNum = calculatedVal;
+        let calculatedVal = operate(Number(firstNum), operator, Number(secNum));
+        firstNum = calculatedVal.toString();
         previousCalculation = true;
         operator = undefined;
         secNum = undefined;
-        populateDisplay(calculatedVal);
+        populateDisplay(firstNum);
     }
 }
 function btnClick(e){
@@ -88,24 +88,32 @@ function btnClick(e){
     }
     if (isNumber(num)){
         if(firstNum === undefined){
-            firstNum = Number(num);
+            firstNum = num;
             populateDisplay(firstNum);
             
         }else if (secNum === undefined && operator === undefined){
             // resets first number from previous calclation when a new number is entered. 
             if(previousCalculation){
-                firstNum = Number(num);
-            } else{
-                firstNum = Number(firstNum.toString().concat(num));
+                firstNum = num;
+            } else{    
+                if(firstNum == "0"){
+                    firstNum = num;
+                }else{
+                    firstNum = firstNum.concat(num);
+                }       
             }
             populateDisplay(firstNum);
 
         }else if(secNum ===undefined){
-            secNum = Number(num);
+            secNum = num;
             populateDisplay(secNum);
 
         }else if(operator != undefined){
-            secNum = Number(secNum.toString().concat(num));
+            if(secNum == "0"){
+                secNum = num
+            } else{
+                secNum = secNum.concat(num);
+            }
             populateDisplay(secNum);
         }
     }
