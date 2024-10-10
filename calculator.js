@@ -55,6 +55,7 @@ function clearBtn(){
     firstNum = undefined;
     secNum = undefined;
     operator = undefined;
+    previousCalculation = false;
 
 }
 function limitOverflow(num){
@@ -74,6 +75,7 @@ function calculateResult(){
         console.log(operator);
         let calculatedVal = operate(firstNum, operator, secNum);
         firstNum = calculatedVal;
+        previousCalculation = true;
         operator = undefined;
         secNum = undefined;
         populateDisplay(calculatedVal);
@@ -85,17 +87,17 @@ function btnClick(e){
         return clearBtn();
     }
     if (isNumber(num)){
-        //start a clean sheet when a new number is entered after a calculation
-        if(firstNum !== undefined && secNum === undefined && operator === undefined){
-            firstNum = undefined;
-        }
-
         if(firstNum === undefined){
             firstNum = Number(num);
             populateDisplay(firstNum);
             
         }else if (secNum === undefined && operator === undefined){
-            firstNum = Number(firstNum.toString().concat(num));
+            // resets first number from previous calclation when a new number is entered. 
+            if(previousCalculation){
+                firstNum = Number(num);
+            } else{
+                firstNum = Number(firstNum.toString().concat(num));
+            }
             populateDisplay(firstNum);
 
         }else if(secNum ===undefined){
@@ -124,6 +126,8 @@ function btnClick(e){
     }
 }
 let firstNum, secNum, operator;
+//start a clean sheet when a new number is entered after a calculation
+let previousCalculation = false;
 let display = document.querySelector(".display");
 const btns = document.querySelectorAll("button");
 for(let i=0; i < btns.length; i++){
