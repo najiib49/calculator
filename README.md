@@ -8,6 +8,7 @@ This calculator project contains functions for all of the basic math operations 
 - multiplication
 - division
 - using decimals
+- catches division by zero (output: Really?)
 - limit overflowing for long decimals
 - allows backspace deletion using a button
 - clear all button
