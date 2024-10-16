@@ -143,7 +143,7 @@ function btnClick(e){
         }
     }
     if("+-*/".includes(num)){
-        if(operator === "undefined"){
+        if(operator === undefined){
             operator = num;
         }else{
             calculateResult();
