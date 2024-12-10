@@ -2,6 +2,8 @@
 
 This calculator project contains functions for all of the basic math operations typically found in calculators. This marks the end of Foundation course for The Odin Project.
 
+https://najiib49.github.io/calculator/
+
 ## Current features include:
 - addition
 - subtraction
